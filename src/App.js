@@ -3,6 +3,8 @@ import "./App.css";
 import axios from 'axios';
 import Image from "./companents/img"
 import Youtube from "./companents/youtube"
+import { Title, Explanation, Date  } from "./companents/title";
+
 
 const dummyData = {
   date: "2023-06-02",
@@ -13,7 +15,7 @@ const dummyData = {
   title: "Messier 101",
   url: "https://apod.nasa.gov/apod/image/2306/M101_hst1280.jpg"
   }
-
+ 
   
 
 function App() {
@@ -22,7 +24,6 @@ function App() {
   const [date, setDate] = useState("2023-06-01")
 
   const onChange = (e) => {
-    // console.log(e)
     setDate(e.target.value);
   }
 
@@ -34,16 +35,28 @@ function App() {
     .catch(err => {
       console.log("Error", err);
     })
+    // setData(dummyData)
   }, [date])
 
   return (
     <div className="App">
-      <input type="date" value={date} onChange={onChange} />
-      <h1>{data.title}</h1>
+      <div className="header">
+        <h1>APOD</h1>
+        <div className="tarihAlani">
+          <p>Tarih Seçiniz..</p>
+        <input type="date" value={date} onChange={onChange} />
+        </div>
+      </div>
+      
+      <Title>{data.title}</Title>
       {data.media_type == "image" ? <Image src = {data.url}></Image> : <Youtube url = {data.url} />}
-      <p className="explanation">{data.explanation}
-      </p>
-      <p className="date">{data.date}</p>
+      < Explanation> 
+      {data.explanation}
+      </Explanation >
+
+      <Date> 
+        {data.date}
+         </Date>
     </div>
   );
 }
